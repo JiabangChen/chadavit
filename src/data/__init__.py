@@ -19,7 +19,9 @@
 
 
 from src.data import classification_dataloader, pretrain_dataloader, custom_datasets, channels_strategies
-
+# 这个是data的init文件，其中会 import classification_dataloader, pretrain_dataloader, custom_datasets,
+# channels_strategies这些文件，但这些文件中如果有报错，比如它们会import一个在环境中没有的包，那么整个import也会报错，即
+# 这个init会报错，连带着最上层how_to_use那边import chadavit也会报错
 __all__ = [
     "classification_dataloader",
     "pretrain_dataloader",

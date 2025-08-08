@@ -24,7 +24,7 @@ from .vit import vit_base as default_vit_base
 from .vit import vit_large as default_vit_large
 
 from .chada_vit import chada_vit as default_chada_vit
-
+# 这里是把vit包的vit文件中的函数import进来，然后定义backbone的init文件所需要的函数
 
 def get_constructor(method, options, default):
     if str(method).lower() in options:

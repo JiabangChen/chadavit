@@ -19,5 +19,6 @@
 
 
 from src import args, backbones, data, losses, methods, utils
-
+# 这里import src中的各个包，import这些包就会执行这些包的__init__()文件
 __all__ = ["args", "backbones", "data", "losses", "methods", "utils"]
+# 这里的all的意思是，如果写from src import *时,只会import all中定义的几个包/模块，其余包只能通过from src import 具体名字 的方式来import
