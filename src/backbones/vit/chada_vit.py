@@ -102,7 +102,7 @@ class TransformerEncoderLayer(Module):
             x = self.norm1(x + attn)
             x = self.norm2(x + self._ff_block(x))
 
-        return x
+        return x #输出与输入的x形状一致（B,1960+1,D）
 
     # self-attention block
     def _sa_block(self, x: Tensor, attn_mask: Optional[Tensor], key_padding_mask: Optional[Tensor], return_attention: bool = False) -> Tensor:
@@ -242,8 +242,8 @@ class ChAdaViT(nn.Module):
         # Concatenate tokens per channel in each image
         chunks = torch.split(tokens_per_channel, list_num_channels[index], dim=0) # List of (img_channels, embed_dim)
         # 由于X*num_channels中对应了batch中的每一个sample，不同的sample可能拥有的channel不一样，list_num_channels记录了不同的sample含有的通道数
-        # index应该是这个batch的起始索引，即从第几个开始是此batch的内容，一般为0。这里的意思就是把tokens_per_channel，按照第0维，按照
-        # list_num_channels[index]起始的划分方案（即每个image有几个channel），划分成若干份，每一份代表原始的每一个sample，其实就是把原来batch中
+        # index应该是这个batch的索引，即第几个list_num_channels是此batch的内容，一般为0。这里的意思就是把tokens_per_channel，按照第0维，按照
+        # list_num_channels[index]的划分方案（即每个image有几个channel），划分成若干份，每一份代表原始的每一个sample，其实就是把原来batch中
         # 的每一个sample沿着channel摊开，然后做patch embedding，然后再归属给每一个sample，把通道对回每张图像，相当于每张图像所能分到的tokens_per_channel
         # 就是chunks中的每一个元素，其形状为（C，196，192），就是（C,N,D），C为每一个sample原有的channel数量
 
