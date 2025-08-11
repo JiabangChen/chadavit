@@ -233,7 +233,8 @@ class ChAdaViT(nn.Module):
         patch_pos_embed = patch_pos_embed.permute(0, 2, 3, 1).view(1, -1, dim)
         return patch_pos_embed.unsqueeze(0)
 
-    def channel_aware_tokenization(self, x, index, list_num_channels, max_channels=10):
+    def channel_aware_tokenization(self, x, index, list_num_channels, max_channels=3):
+        # jiabang's change, set the max_channel = 3
         B, nc, w, h = x.shape    # (B*num_channels, 1, w, h)
 
         # Tokenize through linear embedding
